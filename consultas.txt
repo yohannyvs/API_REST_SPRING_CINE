@@ -10,3 +10,74 @@ SELECT ventas.id_admin, count(ventas.id_admin) as 'tiquetes' from ventas group b
 --NUMERO DE TIQUETES COMPRADOS POR CLIENTE
 SELECT compras.id_cedula,COUNT (compras.id_cedula) as 'tiquetes' from compras group by compras.id_cedula order by tiquetes desc
 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+CREATE PROCEDURE acientos_ocupados(
+@id_presentacion int)
+AS
+BEGIN
+	IF EXISTS(SELECT*FROM presentacion where id_presentacion=@id_presentacion)
+	BEGIN
+	SELECT tiquete.aciento FROM tiquete inner join presentacion on tiquete.id_presentacion=presentacion.id_presentacion where presentacion.id_presentacion=@id_presentacion
+	END
+	
+	ELSE
+	BEGIN 
+	SELECT 2 as 'respuesta'
+	END
+	 
+END
+GO
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+CREATE PROCEDURE busca_peli_nombre(
+@nombre varchar(50))
+AS
+BEGIN
+	IF EXISTS(SELECT*FROM pelicula where nombre=@nombre)
+	BEGIN
+	SELECT presentacion.id_presentacion, pelicula.nombre, pelicula.categoria, pelicula.idioma,horario.hora,sala.numero_sala FROM pelicula inner join presentacion on pelicula.id_peli=presentacion.id_pelicula inner join horario on horario.id_hora = presentacion.id_horario inner join sala on sala.id_sala=presentacion.id_sala where pelicula.nombre=@nombre
+	END
+	
+	ELSE
+	BEGIN 
+	SELECT 2 as 'respuesta'
+	END
+	 
+END
+GO
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+CREATE PROCEDURE busca_peli_idioma(
+@idioma varchar(50))
+AS
+BEGIN
+	IF EXISTS(SELECT*FROM pelicula where idioma=@idioma)
+	BEGIN
+	SELECT presentacion.id_presentacion, pelicula.nombre, pelicula.categoria, pelicula.idioma,horario.hora,sala.numero_sala FROM pelicula inner join presentacion on pelicula.id_peli=presentacion.id_pelicula inner join horario on horario.id_hora = presentacion.id_horario inner join sala on sala.id_sala=presentacion.id_sala where pelicula.idioma=@idioma
+	END
+	
+	ELSE
+	BEGIN 
+	SELECT 2 as 'respuesta'
+	END
+	 
+END
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+CREATE PROCEDURE busca_peli_caategoria(
+@categoria varchar(50))
+AS
+BEGIN
+	IF EXISTS(SELECT*FROM pelicula where categoria=@categoria)
+	BEGIN
+	SELECT presentacion.id_presentacion, pelicula.nombre, pelicula.categoria, pelicula.idioma,horario.hora,sala.numero_sala FROM pelicula inner join presentacion on pelicula.id_peli=presentacion.id_pelicula inner join horario on horario.id_hora = presentacion.id_horario inner join sala on sala.id_sala=presentacion.id_sala where pelicula.categoria=@categoria
+	END
+	
+	ELSE
+	BEGIN 
+	SELECT 2 as 'respuesta'
+	END
+	 
+END
+GO
