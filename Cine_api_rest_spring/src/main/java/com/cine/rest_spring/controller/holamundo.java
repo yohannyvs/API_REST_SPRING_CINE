@@ -1,6 +1,8 @@
 package com.cine.rest_spring.controller;
 
 import com.cine.rest_spring.model.prueba_model;
+import com.cine.rest_spring.service.cine_service;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Spliterator;
@@ -49,6 +51,17 @@ public class holamundo
         
         return new ResponseEntity<String>(hola, HttpStatus.OK);
     }
+    
+    /*@RequestMapping(value = "/login", method = RequestMethod.GET)
+    public ResponseEntity<String> hola(@RequestParam( value="user")String user, @RequestParam(value="pass") String pass) throws ClassNotFoundException, SQLException 
+    {
+        cine_service cs = new cine_service();
+        int valor = cs.login(user, pass);
+        
+        String res = valor+"";
+        
+        return new ResponseEntity<String>(res, HttpStatus.OK);
+    }*/
     
     @RequestMapping(value = "/add/", method = RequestMethod.POST)
     public ResponseEntity<?> add(@RequestBody prueba_model prueba)
