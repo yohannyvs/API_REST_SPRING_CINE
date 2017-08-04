@@ -138,7 +138,7 @@ BEGIN
 	
 	
 	
-if exists (SELECT * FROM admin where id_admin=@id_cedula )
+if exists (SELECT * FROM admin where id_cedula=@id_cedula )
 begin
 	 
 	 SELECT 2 as 'respuesta'
