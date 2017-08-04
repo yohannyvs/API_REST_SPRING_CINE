@@ -1,0 +1,12 @@
+--BUSQUEDA DE PELICULAS
+SELECT presentacion.id_presentacion, pelicula.nombre, pelicula.categoria, pelicula.idioma,horario.hora,sala.numero_sala FROM pelicula inner join presentacion on pelicula.id_peli=presentacion.id_pelicula inner join horario on horario.id_hora = presentacion.id_horario inner join sala on sala.id_sala=presentacion.id_sala
+
+--BUSQUEDA ASIENTOS OCUPADOS POR PRESENTACION 
+SELECT tiquete.aciento FROM tiquete inner join presentacion on tiquete.id_presentacion=presentacion.id_presentacion where presentacion.id_presentacion=''
+
+--NUMERO DE TIQUETES VENDIDOS POR ADMIN 
+SELECT ventas.id_admin, count(ventas.id_admin) as 'tiquetes' from ventas group by ventas.id_admin order by tiquetes desc
+
+--NUMERO DE TIQUETES COMPRADOS POR CLIENTE
+SELECT compras.id_cedula,COUNT (compras.id_cedula) as 'tiquetes' from compras group by compras.id_cedula order by tiquetes desc
+
