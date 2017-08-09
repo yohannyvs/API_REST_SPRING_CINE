@@ -1,0 +1,76 @@
+ALTER PROCEDURE compra_taquilla(
+@id_admin varchar(50),
+@id_presentacion int,
+@aciento int,
+@cedula varchar(50),
+@factura int)
+AS
+BEGIN
+
+DECLARE
+@num_factura int,
+@num_tiquete int
+
+--busca si existe la presentacion
+IF EXISTS (SELECT * FROM presentacion where id_presentacion=@id_presentacion)
+BEGIN
+
+	--busca asiento libre
+	IF EXISTS (SELECT *FROM tiquete inner join presentacion on tiquete.id_presentacion=presentacion.id_presentacion where tiquete.aciento=@aciento AND presentacion.id_presentacion=@id_presentacion )
+	BEGIN
+	--aciento ocupado
+	SELECT 'ocupado' as 'respuesta'
+	END
+	--aciento libre
+	ELSE
+	BEGIN
+		if(@factura=0)
+		begin
+			INSERT INTO factura VALUES (@cedula,4000)
+			
+			SET @num_factura=(SELECT IDENT_CURRENT('factura'))
+			
+			INSERT INTO tiquete VALUES(@id_presentacion,@aciento)
+			
+			SET @num_tiquete=(SELECT IDENT_CURRENT('tiquete'))
+			
+			INSERT INTO factura_tiquete VALUES(@num_factura,@num_tiquete)
+			
+			INSERT INTO ventas VALUES (@id_admin,@num_tiquete)
+			
+			INSERT INTO compras VALUES (@cedula,@num_tiquete)
+			
+			-- compra lista 
+			SELECT @num_factura as 'respuesta'
+			
+		end
+		ELSE
+		BEGIN
+			UPDATE factura SET total=(total+4000)where id_factura=@factura
+			
+			INSERT INTO tiquete VALUES(@id_presentacion,@aciento)
+			
+			SET @num_tiquete=(SELECT IDENT_CURRENT('tiquete'))
+			
+			INSERT INTO factura_tiquete VALUES(@factura,@num_tiquete)
+			
+			INSERT INTO ventas VALUES (@id_admin,@num_tiquete)
+			
+			INSERT INTO compras VALUES (@cedula,@num_tiquete)
+			
+			-- se agrego a la factura ya existente 
+			SELECT 'listo agregado' as 'respuesta'
+			
+			 
+		END
+	 END
+	 
+END
+--no existe presentacion 
+ELSE
+BEGIN
+SELECT 'no existe' as 'respuesta'
+END 
+
+	
+END

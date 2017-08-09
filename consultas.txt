@@ -10,6 +10,20 @@ SELECT ventas.id_admin, count(ventas.id_admin) as 'tiquetes' from ventas group b
 --NUMERO DE TIQUETES COMPRADOS POR CLIENTE
 SELECT compras.id_cedula,COUNT (compras.id_cedula) as 'tiquetes' from compras group by compras.id_cedula order by tiquetes desc
 
+exec insert_peli 'cars 3','animada','espanol','null'
+
+exec insert_presentacion 1,'1:00','1'
+
+exec insert_admin '987','admin1','admin@correo.com','1234'
+
+exec insert_usuario '123','usuario1','usuario@correo.com','1234'
+
+exec compra_taquilla '987',1,2,'123',1
+
+
+
+
+
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 CREATE PROCEDURE acientos_ocupados(
 @id_presentacion int)
