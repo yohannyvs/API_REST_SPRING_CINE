@@ -5,10 +5,14 @@ import com.cine.rest_spring.model.pelicula;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-public class peliculaService 
+@Service("peliculaserviceinterface")
+@Transactional
+public class peliculaService implements peliculaServiceInterface
 {
-      
+    @Override
     public List<pelicula> getpeliculas() throws SQLException, ClassNotFoundException
     {
         Connection cn = conectar.con();

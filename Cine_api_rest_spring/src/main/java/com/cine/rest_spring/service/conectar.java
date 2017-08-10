@@ -14,7 +14,8 @@ public class conectar
        {
            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
            conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=cinepolis","sa","progra");
-           return conn; 
+           System.out.println("Listo");
+           return conn;
        }
        catch(SQLException ex)
        {

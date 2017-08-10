@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class peliculaController 
 {
     @Autowired
-    peliculaService ps;
+    peliculaServiceInterface psi;
     
     @RequestMapping(value = "/pelicula/", method = RequestMethod.GET)
     public ResponseEntity<List<pelicula>> peliculas() throws SQLException, ClassNotFoundException {
         
-        List<pelicula> p = ps.getpeliculas();
+        List<pelicula> p = psi.getpeliculas();
         
         if(p.isEmpty()){
             return new ResponseEntity<List<pelicula>>(HttpStatus.NO_CONTENT);

@@ -64,9 +64,9 @@
                                     <artifactId>appengine-maven-plugin</artifactId>
                                     <version>1.3.1</version>
                                     <configuration>
-                                        <devserver.host>0.0.0.0</devserver.host>
-                                        <devserver.port>8181</devserver.port>
-                                      </configuration>
+                                        <project>cine-api-rest-spring</project>
+                                        <version>1</version>
+                                    </configuration>
                                 </plugin>
 			</plugins>
 		</pluginManagement>
