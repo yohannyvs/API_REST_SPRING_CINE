@@ -36,4 +36,35 @@ public class peliculaService implements peliculaServiceInterface
         return list;
     }
     
+    @Override
+    public void add_pelicula(String nombre, String categoria, String idioma, String img) throws ClassNotFoundException, SQLException
+    {
+        Connection cn = conectar.con();
+        CallableStatement cs = null;
+    
+        cs= cn.prepareCall("{call insert_peli (?,?,?,?)}");
+        
+        cs.setString(1, nombre);
+        cs.setString(2, categoria);
+        cs.setString(3, idioma);
+        cs.setString(4, img);
+        
+        cs.executeQuery();
+    }
+    
+    @Override
+    public void add_presentacion(int id_pelicula, String hora, String sala) throws ClassNotFoundException, SQLException
+    {
+        Connection cn = conectar.con();
+        CallableStatement cs = null;
+    
+        cs= cn.prepareCall("{call insert_presentacion (?,?,?)}");
+        
+        cs.setInt(1, id_pelicula);
+        cs.setString(2, hora);
+        cs.setString(3, sala);
+        
+        cs.executeQuery();
+    }
+    
 }

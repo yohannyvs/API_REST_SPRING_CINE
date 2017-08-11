@@ -9,8 +9,16 @@ public class pelicula
     private String idioma;
     private String hora;
     private String num_sala;
+    private String img;
 
     public pelicula() {
+    }
+
+    public pelicula(String nombre, String categoria, String idioma, String img) {
+        this.nombre = nombre;
+        this.categoria = categoria;
+        this.idioma = idioma;
+        this.img = img;
     }
 
     public pelicula(int id_presentacion, String nombre, String categoria, String idioma, String hora, String num_sala) {
@@ -22,6 +30,14 @@ public class pelicula
         this.num_sala = num_sala;
     }
 
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+    
     public int getId_presentacion() {
         return id_presentacion;
     }
