@@ -15,5 +15,7 @@ public interface peliculaServiceInterface
     List<pelicula> getpeliculascategoria(String categoria) throws SQLException, ClassNotFoundException;
     List<pelicula> getpeliculasidioma(String idioma) throws SQLException, ClassNotFoundException;
     List<pelicula> getpeliculasnombre(String nombre) throws SQLException, ClassNotFoundException;
+    String compra_taquilla(String id_admin, int id_presentacion, int aciento, String cedula) throws ClassNotFoundException, SQLException;
+    String pago(int num_factura, int num_tarjeta, String fecha, String num_seguridad) throws ClassNotFoundException, SQLException;
     
 }

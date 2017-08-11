@@ -22,7 +22,8 @@ public class peliculaController
     peliculaServiceInterface psi;
     
     @RequestMapping(value = "/pelicula/", method = RequestMethod.GET)
-    public ResponseEntity<List<pelicula>> peliculas() throws SQLException, ClassNotFoundException {
+    public ResponseEntity<List<pelicula>> peliculas() throws SQLException, ClassNotFoundException 
+    {
         
         List<pelicula> p = psi.getpeliculas();
         
@@ -34,7 +35,8 @@ public class peliculaController
     }
     
     @RequestMapping(value = "/pelicula_categoria", method = RequestMethod.GET)
-    public ResponseEntity<List<pelicula>> peliculas_categoria(@RequestParam( value="categoria")String categoria) throws SQLException, ClassNotFoundException {
+    public ResponseEntity<List<pelicula>> peliculas_categoria(@RequestParam( value="categoria")String categoria) throws SQLException, ClassNotFoundException 
+    {
         
         List<pelicula> p = psi.getpeliculascategoria(categoria);
         
@@ -46,7 +48,8 @@ public class peliculaController
     }
     
     @RequestMapping(value = "/pelicula_idioma", method = RequestMethod.GET)
-    public ResponseEntity<List<pelicula>> peliculas_idioma(@RequestParam( value="idioma")String idioma) throws SQLException, ClassNotFoundException {
+    public ResponseEntity<List<pelicula>> peliculas_idioma(@RequestParam( value="idioma")String idioma) throws SQLException, ClassNotFoundException 
+    {
         
         if(idioma.equals("Espanol"))
         {
@@ -63,7 +66,8 @@ public class peliculaController
     }
     
     @RequestMapping(value = "/pelicula_nombre", method = RequestMethod.GET)
-    public ResponseEntity<List<pelicula>> peliculas_nombre(@RequestParam( value="nombre")String nombre) throws SQLException, ClassNotFoundException {
+    public ResponseEntity<List<pelicula>> peliculas_nombre(@RequestParam( value="nombre")String nombre) throws SQLException, ClassNotFoundException 
+    {
         
         List<pelicula> p = psi.getpeliculasnombre(nombre);
         
@@ -77,7 +81,6 @@ public class peliculaController
     @RequestMapping(value = "/add_pelicula/", method = RequestMethod.POST)
     public ResponseEntity<?> add(@RequestBody pelicula p) throws ClassNotFoundException, SQLException
     {
-    
         psi.add_pelicula(p.getNombre(), p.getCategoria(), p.getIdioma(), p.getImg());
         
         return ResponseEntity.ok(p);
@@ -86,10 +89,33 @@ public class peliculaController
     @RequestMapping(value = "/add_presentacion/", method = RequestMethod.POST)
     public ResponseEntity<?> add(@RequestBody presentacion pr) throws ClassNotFoundException, SQLException
     {
-    
         psi.add_presentacion(pr.getId_pelicula(), pr.getHora(), pr.getSala());
         
         return ResponseEntity.ok(pr);
+    }
+    
+    @RequestMapping(value = "/compra", method = RequestMethod.GET)
+    public ResponseEntity<String> compra_tiquete(@RequestParam( value="admin")String admin, @RequestParam(value="id_present") int id_present,
+                                       @RequestParam( value="aciento") int aciento, @RequestParam( value="cedula") String cedula)
+            throws ClassNotFoundException, SQLException 
+    {      
+        String res = null;
+        
+        res = psi.compra_taquilla(admin, id_present, aciento, cedula);
+        
+        return new ResponseEntity<String>(res, HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/pago", method = RequestMethod.GET)
+    public ResponseEntity<String> pago(@RequestParam( value="num_fact")int num_fact, @RequestParam(value="num_tar") int num_tar,
+                                       @RequestParam( value="fecha") String fecha, @RequestParam( value="num_seg") String num_seg)
+            throws ClassNotFoundException, SQLException 
+    {      
+        String res = null;
+        
+        res = psi.pago(num_fact, num_tar, fecha, num_seg);
+        
+        return new ResponseEntity<String>(res, HttpStatus.OK);
     }
     
 }

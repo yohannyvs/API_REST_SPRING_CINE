@@ -151,5 +151,53 @@ public class peliculaService implements peliculaServiceInterface
         
         cs.executeQuery();
     }
+    
+    @Override
+    public String compra_taquilla(String id_admin, int id_presentacion, int aciento, String cedula) throws ClassNotFoundException, SQLException
+    {
+        String res = null;
+        
+        Connection cn = conectar.con();
+        
+        CallableStatement cs = null;
+        cs= cn.prepareCall("{call compra_taquilla (?,?,?,?)}");
+        cs.setString(1, id_admin);
+        cs.setInt(2, id_presentacion);
+        cs.setInt(3, aciento);
+        cs.setString(4, cedula);
+        
+        ResultSet rs = cs.executeQuery();
+        
+        while (rs.next()) 
+        {
+            res = rs.getString(1).toString();
+        }
+        
+        return res;
+    }
+    
+    @Override
+    public String pago(int num_factura, int num_tarjeta, String fecha, String num_seguridad) throws ClassNotFoundException, SQLException
+    {
+        String res = null;
+        
+        Connection cn = conectar.con();
+        
+        CallableStatement cs = null;
+        cs= cn.prepareCall("{call compra_taquilla (?,?,?,?)}");
+        cs.setInt(1, num_factura);
+        cs.setInt(2, num_tarjeta);
+        cs.setString(3, fecha);
+        cs.setString(4, num_seguridad);
+        
+        ResultSet rs = cs.executeQuery();
+        
+        while (rs.next()) 
+        {
+            res = rs.getString(1).toString();
+        }
+        
+        return res;
+    }
       
 }
