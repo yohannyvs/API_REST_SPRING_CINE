@@ -122,10 +122,11 @@ public class peliculaService implements peliculaServiceInterface
     }
     
     @Override
-    public void add_pelicula(String nombre, String categoria, String idioma, String img) throws ClassNotFoundException, SQLException
+    public String add_pelicula(String nombre, String categoria, String idioma, String img) throws ClassNotFoundException, SQLException
     {
         Connection cn = conectar.con();
         CallableStatement cs = null;
+        String res = null;
     
         cs= cn.prepareCall("{call insert_peli (?,?,?,?)}");
         
@@ -134,14 +135,22 @@ public class peliculaService implements peliculaServiceInterface
         cs.setString(3, idioma);
         cs.setString(4, img);
         
-        cs.executeQuery();
+        ResultSet rs = cs.executeQuery();
+        
+        while (rs.next()) 
+        {
+            res = rs.getString(1).toString();
+        }
+        
+        return res;
     }
     
     @Override
-    public void add_presentacion(int id_pelicula, String hora, String sala) throws ClassNotFoundException, SQLException
+    public String add_presentacion(int id_pelicula, String hora, String sala) throws ClassNotFoundException, SQLException
     {
         Connection cn = conectar.con();
         CallableStatement cs = null;
+        String res = null;
     
         cs= cn.prepareCall("{call insert_presentacion (?,?,?)}");
         
@@ -149,7 +158,14 @@ public class peliculaService implements peliculaServiceInterface
         cs.setString(2, hora);
         cs.setString(3, sala);
         
-        cs.executeQuery();
+        ResultSet rs = cs.executeQuery();
+        
+        while (rs.next()) 
+        {
+            res = rs.getString(1).toString();
+        }
+        
+        return res;
     }
     
     @Override

@@ -78,20 +78,25 @@ public class peliculaController
         return new ResponseEntity<List<pelicula>>(p, HttpStatus.OK);
     }
     
-    @RequestMapping(value = "/add_pelicula/", method = RequestMethod.POST)
-    public ResponseEntity<?> add(@RequestBody pelicula p) throws ClassNotFoundException, SQLException
+    @RequestMapping(value = "/add_pelicula", method = RequestMethod.GET)
+    public ResponseEntity<String> add_pelicula(@RequestParam( value="nombre")String nombre, @RequestParam(value="categoria") String categoria,
+                                      @RequestParam( value="idioma") String idioma, @RequestParam( value="img") String img)
+            throws ClassNotFoundException, SQLException
     {
-        psi.add_pelicula(p.getNombre(), p.getCategoria(), p.getIdioma(), p.getImg());
         
-        return ResponseEntity.ok(p);
+        String res = psi.add_pelicula(nombre, categoria, idioma, img);
+        
+        return new ResponseEntity<String>(res, HttpStatus.OK);
     }
     
-    @RequestMapping(value = "/add_presentacion/", method = RequestMethod.POST)
-    public ResponseEntity<?> add(@RequestBody presentacion pr) throws ClassNotFoundException, SQLException
+    @RequestMapping(value = "/add_presentacion", method = RequestMethod.GET)
+    public ResponseEntity<String> add_presentacion(@RequestParam( value="pelicula")int id_peli, @RequestParam(value="hora") String hora,
+                                      @RequestParam( value="sala") String sala)
+            throws ClassNotFoundException, SQLException
     {
-        psi.add_presentacion(pr.getId_pelicula(), pr.getHora(), pr.getSala());
+        String res = psi.add_presentacion(id_peli, hora, sala);
         
-        return ResponseEntity.ok(pr);
+        return new ResponseEntity<String>(res, HttpStatus.OK);
     }
     
     @RequestMapping(value = "/compra", method = RequestMethod.GET)
