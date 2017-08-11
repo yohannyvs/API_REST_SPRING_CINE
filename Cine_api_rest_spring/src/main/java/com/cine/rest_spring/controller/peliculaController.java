@@ -45,8 +45,13 @@ public class peliculaController
         return new ResponseEntity<List<pelicula>>(p, HttpStatus.OK);
     }
     
-    @RequestMapping(value = "/pelicula_idioma/", method = RequestMethod.GET)
+    @RequestMapping(value = "/pelicula_idioma", method = RequestMethod.GET)
     public ResponseEntity<List<pelicula>> peliculas_idioma(@RequestParam( value="idioma")String idioma) throws SQLException, ClassNotFoundException {
+        
+        if(idioma.equals("Espanol"))
+        {
+            idioma = "Español";
+        }
         
         List<pelicula> p = psi.getpeliculasidioma(idioma);
         
@@ -57,7 +62,7 @@ public class peliculaController
         return new ResponseEntity<List<pelicula>>(p, HttpStatus.OK);
     }
     
-    @RequestMapping(value = "/pelicula_nombre/", method = RequestMethod.GET)
+    @RequestMapping(value = "/pelicula_nombre", method = RequestMethod.GET)
     public ResponseEntity<List<pelicula>> peliculas_nombre(@RequestParam( value="nombre")String nombre) throws SQLException, ClassNotFoundException {
         
         List<pelicula> p = psi.getpeliculasnombre(nombre);
