@@ -21,13 +21,14 @@ public class pelicula
         this.img = img;
     }
 
-    public pelicula(int id_presentacion, String nombre, String categoria, String idioma, String hora, String num_sala) {
+    public pelicula(int id_presentacion, String nombre, String categoria, String idioma, String hora, String num_sala, String img) {
         this.id_presentacion = id_presentacion;
         this.nombre = nombre;
         this.categoria = categoria;
         this.idioma = idioma;
         this.hora = hora;
         this.num_sala = num_sala;
+        this.img = img;
     }
 
     public String getImg() {

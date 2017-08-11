@@ -33,6 +33,42 @@ public class peliculaController
         return new ResponseEntity<List<pelicula>>(p, HttpStatus.OK);
     }
     
+    @RequestMapping(value = "/pelicula_categoria", method = RequestMethod.GET)
+    public ResponseEntity<List<pelicula>> peliculas_categoria(@RequestParam( value="categoria")String categoria) throws SQLException, ClassNotFoundException {
+        
+        List<pelicula> p = psi.getpeliculascategoria(categoria);
+        
+        if(p.isEmpty()){
+            return new ResponseEntity<List<pelicula>>(HttpStatus.NO_CONTENT);
+        }
+        
+        return new ResponseEntity<List<pelicula>>(p, HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/pelicula_idioma/", method = RequestMethod.GET)
+    public ResponseEntity<List<pelicula>> peliculas_idioma(@RequestParam( value="idioma")String idioma) throws SQLException, ClassNotFoundException {
+        
+        List<pelicula> p = psi.getpeliculasidioma(idioma);
+        
+        if(p.isEmpty()){
+            return new ResponseEntity<List<pelicula>>(HttpStatus.NO_CONTENT);
+        }
+        
+        return new ResponseEntity<List<pelicula>>(p, HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/pelicula_nombre/", method = RequestMethod.GET)
+    public ResponseEntity<List<pelicula>> peliculas_nombre(@RequestParam( value="nombre")String nombre) throws SQLException, ClassNotFoundException {
+        
+        List<pelicula> p = psi.getpeliculasnombre(nombre);
+        
+        if(p.isEmpty()){
+            return new ResponseEntity<List<pelicula>>(HttpStatus.NO_CONTENT);
+        }
+        
+        return new ResponseEntity<List<pelicula>>(p, HttpStatus.OK);
+    }
+    
     @RequestMapping(value = "/add_pelicula/", method = RequestMethod.POST)
     public ResponseEntity<?> add(@RequestBody pelicula p) throws ClassNotFoundException, SQLException
     {

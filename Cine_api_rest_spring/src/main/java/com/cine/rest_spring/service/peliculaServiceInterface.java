@@ -12,4 +12,8 @@ public interface peliculaServiceInterface
     List<pelicula> getpeliculas() throws SQLException, ClassNotFoundException;
     void add_pelicula(String nombre, String categoria, String idioma, String img) throws ClassNotFoundException, SQLException;
     void add_presentacion(int id_pelicula, String hora, String sala) throws ClassNotFoundException, SQLException;
+    List<pelicula> getpeliculascategoria(String categoria) throws SQLException, ClassNotFoundException;
+    List<pelicula> getpeliculasidioma(String idioma) throws SQLException, ClassNotFoundException;
+    List<pelicula> getpeliculasnombre(String nombre) throws SQLException, ClassNotFoundException;
+    
 }
