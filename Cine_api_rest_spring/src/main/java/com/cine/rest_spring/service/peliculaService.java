@@ -107,7 +107,7 @@ public class peliculaService implements peliculaServiceInterface
         
         while (rs.next()) 
         {
-            list.add( rs.getString(1) );
+            list.add(rs.getString(1));
         }
         
         return list;
