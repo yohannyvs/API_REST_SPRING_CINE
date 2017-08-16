@@ -123,4 +123,17 @@ public class peliculaController
         return new ResponseEntity<String>(res, HttpStatus.OK);
     }
     
+    @RequestMapping(value = "/aientos", method = RequestMethod.GET)
+    public ResponseEntity<List<String>> acientos(@RequestParam( value="presentacion")int presentacion)
+            throws ClassNotFoundException, SQLException 
+    {      
+        List<String> res = psi.getacientos_ocupado(presentacion);
+        
+        if(res.isEmpty()){
+            return new ResponseEntity<List<String>>(HttpStatus.NO_CONTENT);
+        }
+        
+        return new ResponseEntity<List<String>>(res, HttpStatus.OK);
+    }
+    
 }

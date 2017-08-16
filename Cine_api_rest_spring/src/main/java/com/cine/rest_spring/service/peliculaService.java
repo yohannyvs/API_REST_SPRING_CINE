@@ -94,6 +94,26 @@ public class peliculaService implements peliculaServiceInterface
     }
     
     @Override
+    public List<String> getacientos_ocupado( int id_presentacion ) throws SQLException, ClassNotFoundException
+    {
+        Connection cn = conectar.con();
+        List<String> list = new ArrayList();
+        
+        CallableStatement cs = null;
+        cs= cn.prepareCall("{call acientos_ocupados (?)}");
+        cs.setInt(1, id_presentacion);
+        
+        ResultSet rs = cs.executeQuery();
+        
+        while (rs.next()) 
+        {
+            list.add( rs.getString(1) );
+        }
+        
+        return list;
+    }
+    
+    @Override
     public List<pelicula> getpeliculasnombre(String nombre) throws SQLException, ClassNotFoundException
     {
         Connection cn = conectar.con();
