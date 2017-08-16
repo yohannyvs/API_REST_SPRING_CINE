@@ -123,7 +123,7 @@ public class peliculaController
         return new ResponseEntity<String>(res, HttpStatus.OK);
     }
     
-    @RequestMapping(value = "/aientos", method = RequestMethod.GET)
+    @RequestMapping(value = "/acientos", method = RequestMethod.GET)
     public ResponseEntity<List<String>> acientos(@RequestParam( value="presentacion")int presentacion)
             throws ClassNotFoundException, SQLException 
     {      
