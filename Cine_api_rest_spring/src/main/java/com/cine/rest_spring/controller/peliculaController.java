@@ -130,7 +130,8 @@ public class peliculaController
         List<String> res = psi.getacientos_ocupado(presentacion);
         
         if(res.isEmpty()){
-            return new ResponseEntity<List<String>>(HttpStatus.NO_CONTENT);
+            res.add("no");
+            return new ResponseEntity<List<String>>(res, HttpStatus.OK);
         }
         
         return new ResponseEntity<List<String>>(res, HttpStatus.OK);
