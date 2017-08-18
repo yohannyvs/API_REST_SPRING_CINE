@@ -13,7 +13,7 @@ public class conectar
         try
        {
            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-           conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=cinepolis","sa","progra");
+           conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=cinepolis","sa","123");
            System.out.println("Listo");
            return conn;
        }
