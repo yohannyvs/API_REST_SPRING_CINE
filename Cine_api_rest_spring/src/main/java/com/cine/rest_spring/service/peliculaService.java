@@ -220,7 +220,7 @@ public class peliculaService implements peliculaServiceInterface
         Connection cn = conectar.con();
         
         CallableStatement cs = null;
-        cs= cn.prepareCall("{call compra_taquilla (?,?,?,?)}");
+        cs= cn.prepareCall("{call pago (?,?,?,?)}");
         cs.setInt(1, num_factura);
         cs.setInt(2, num_tarjeta);
         cs.setString(3, fecha);
