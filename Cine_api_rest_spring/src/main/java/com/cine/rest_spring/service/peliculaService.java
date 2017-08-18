@@ -202,13 +202,30 @@ public class peliculaService implements peliculaServiceInterface
         cs.setInt(3, aciento);
         cs.setString(4, cedula);
         
-        ResultSet rs = cs.executeQuery();
+        boolean rsp = cs.execute();
         
-        while (rs.next()) 
+        if(rsp==false)
         {
-            res = rs.getString(1).toString();
+            String query = "SELECT id_factura FROM factura where id_cedula="+ cedula +" AND estado='reservado'";
+            
+            Statement stmt = cn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) 
+            {
+                res = rs.getString(1);
+            }
         }
-        
+        else
+        {
+            ResultSet rs = cs.getResultSet();
+            
+            while (rs.next()) 
+            {
+                res = rs.getString(1).toString();
+            }
+        }
+
         return res;
     }
     
