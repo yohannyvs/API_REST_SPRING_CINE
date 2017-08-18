@@ -1,12 +1,3 @@
-create table tarjetas (
-num_tarjeta int primary key,
-fecha varchar(25),
-num_seguridad varchar(25),
-saldo int)
-
-ingresar a la tabla factura campo "estado varchar(50)"
-
-
 
 +++++++++++++++++++++++++++++++++++++++++++++++++
 CREATE PROCEDURE acientos_ocupados(

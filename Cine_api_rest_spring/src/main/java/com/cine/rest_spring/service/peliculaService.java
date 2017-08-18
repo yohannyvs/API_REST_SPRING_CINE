@@ -36,7 +36,7 @@ public class peliculaService implements peliculaServiceInterface
         
         return list;
     }
-    
+    // prueba 
     @Override
     public List<pelicula> getpeliculascategoria(String categoria) throws SQLException, ClassNotFoundException
     {
