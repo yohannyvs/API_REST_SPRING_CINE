@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -93,7 +94,7 @@ public class peliculaController
     */
     
     
-    @RequestMapping(value = "/add_pelicula", headers=("content-type=multipart/*"))
+    @RequestMapping(value = "/add_pelicula", headers=("content-type=multipart/*"), consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity add_pelicula(@RequestParam( value="nombre")String nombre, @RequestParam(value="categoria") String categoria,
                                       @RequestParam( value="idioma") String idioma, @RequestParam("file") MultipartFile file)
             throws ClassNotFoundException, SQLException
