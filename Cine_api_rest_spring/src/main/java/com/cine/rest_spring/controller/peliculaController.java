@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 public class peliculaController 
@@ -78,6 +79,7 @@ public class peliculaController
         return new ResponseEntity<List<pelicula>>(p, HttpStatus.OK);
     }
     
+    /*
     @RequestMapping(value = "/add_pelicula", method = RequestMethod.GET)
     public ResponseEntity<String> add_pelicula(@RequestParam( value="nombre")String nombre, @RequestParam(value="categoria") String categoria,
                                       @RequestParam( value="idioma") String idioma, @RequestParam( value="img") String img)
@@ -88,6 +90,20 @@ public class peliculaController
         
         return new ResponseEntity<String>(res, HttpStatus.OK);
     }
+    */
+    
+    
+    @RequestMapping(value = "/add_pelicula", headers=("content-type=multipart/*"))
+    public ResponseEntity add_pelicula(@RequestParam( value="nombre")String nombre, @RequestParam(value="categoria") String categoria,
+                                      @RequestParam( value="idioma") String idioma, @RequestParam("file") MultipartFile file)
+            throws ClassNotFoundException, SQLException
+    {
+        
+        String res = psi.add_pelicula(nombre, categoria, idioma, file);
+        
+        return new ResponseEntity(res, HttpStatus.OK);
+    }
+    
     
     @RequestMapping(value = "/add_presentacion", method = RequestMethod.GET)
     public ResponseEntity<String> add_presentacion(@RequestParam( value="pelicula")int id_peli, @RequestParam(value="hora") String hora,
