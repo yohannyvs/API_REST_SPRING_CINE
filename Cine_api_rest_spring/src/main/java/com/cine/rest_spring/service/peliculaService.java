@@ -1,12 +1,17 @@
 
 package com.cine.rest_spring.service;
 
+import com.cine.rest_spring.model.FileInfo;
 import com.cine.rest_spring.model.pelicula;
+import java.io.File;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service("peliculaserviceinterface")
 @Transactional
@@ -141,7 +146,7 @@ public class peliculaService implements peliculaServiceInterface
         return list;
     }
     
-    @Override
+    /*@Override
     public String add_pelicula(String nombre, String categoria, String idioma, String img) throws ClassNotFoundException, SQLException
     {
         Connection cn = conectar.con();
@@ -164,6 +169,7 @@ public class peliculaService implements peliculaServiceInterface
         
         return res;
     }
+    */
     
     @Override
     public String add_presentacion(int id_pelicula, String hora, String sala) throws ClassNotFoundException, SQLException
@@ -202,13 +208,30 @@ public class peliculaService implements peliculaServiceInterface
         cs.setInt(3, aciento);
         cs.setString(4, cedula);
         
-        ResultSet rs = cs.executeQuery();
+        boolean rsp = cs.execute();
         
-        while (rs.next()) 
+        if(rsp==false)
         {
-            res = rs.getString(1).toString();
+            String query = "SELECT id_factura FROM factura where id_cedula="+ cedula +" AND estado='reservado'";
+            
+            Statement stmt = cn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) 
+            {
+                res = rs.getString(1);
+            }
         }
-        
+        else
+        {
+            ResultSet rs = cs.getResultSet();
+            
+            while (rs.next()) 
+            {
+                res = rs.getString(1).toString();
+            }
+        }
+
         return res;
     }
     
@@ -230,10 +253,72 @@ public class peliculaService implements peliculaServiceInterface
         
         while (rs.next()) 
         {
-            res = rs.getString(1).toString();
+            res = ""+rs.getInt(1);
         }
         
         return res;
     }
-      
+    
+    
+    @Override
+    public String add_pelicula(String nombre, String categoria, String idioma, MultipartFile file) throws ClassNotFoundException, SQLException
+    {
+        Connection cn = conectar.con();
+        CallableStatement cs = null;
+        String res = null;
+        String file_rout = null;
+        
+        file_rout = upload(file);
+        
+        if(file_rout.equals("1") || file_rout.equals("2"))
+        {
+            return res = "2";
+        }
+        else
+        {
+            cs= cn.prepareCall("{call insert_peli (?,?,?,?)}");
+        
+            cs.setString(1, nombre);
+            cs.setString(2, categoria);
+            cs.setString(3, idioma);
+            cs.setString(4, file_rout);
+
+            int rs = cs.executeUpdate();
+            res = ""+rs;
+            System.out.println(rs);
+            
+            return res;
+        }
+    }
+    
+    public String upload( MultipartFile inputFile) 
+    {
+        FileInfo fileInfo = new FileInfo();
+        HttpHeaders headers = new HttpHeaders();
+        if (!inputFile.isEmpty()) 
+        {
+            try 
+            {
+                System.out.println("Entro");
+                String originalFilename = inputFile.getOriginalFilename();
+                System.out.println("Entro " + originalFilename);
+                //File destinationFile = new File(context.getRealPath("\\WEB-INF\\uploaded\\")+ originalFilename);
+                File destinationFile = new File("C:\\prueba\\"+originalFilename);
+                System.out.println("Entro "+destinationFile.getPath());
+                inputFile.transferTo(destinationFile);
+                fileInfo.setFileName(destinationFile.getPath());
+                fileInfo.setFileSize(inputFile.getSize());
+                headers.add("File Uploaded Successfully - ", originalFilename);
+                return destinationFile.getPath();
+            } 
+            catch (IOException | IllegalStateException e) 
+            {    
+                return "2";
+            }
+        }else
+        {
+         return "1";
+        }
+    }
+    
 }
